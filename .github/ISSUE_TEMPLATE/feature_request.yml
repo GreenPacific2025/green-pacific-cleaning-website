@@ -1,0 +1,23 @@
+
+name: "✨ Feature / Design request"
+description: Request a new feature, section, or design change
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What change do you want and why?
+      placeholder: Add sticky header similar to source site...
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / references
+      placeholder: Link to mockups, screenshots, or examples
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: What must be true for 'done'? 

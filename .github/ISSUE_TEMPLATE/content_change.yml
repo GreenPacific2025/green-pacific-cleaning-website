@@ -1,0 +1,21 @@
+
+name: "📝 Content change"
+description: Request copy/asset updates to a page
+labels: ["content"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: e.g., frontend/office-cleaning.html
+  - type: textarea
+    id: changes
+    attributes:
+      label: Changes
+      placeholder: Bullet out the exact copy blocks / images to replace
+      render: markdown
+  - type: textarea
+    id: assets
+    attributes:
+      label: New assets
+      description: Drag/drop images here or link to files in the repo

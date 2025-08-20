@@ -1,0 +1,24 @@
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / frontend
+node_modules/
+dist/
+build/
+
+# Python / backend
+venv/
+.env
+__pycache__/
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
+
+# Output
+*.zip

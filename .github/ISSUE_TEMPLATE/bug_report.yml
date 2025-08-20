@@ -1,0 +1,28 @@
+
+name: "🐞 Bug report"
+description: Report a bug or broken behavior
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen.
+      placeholder: Broken header layout on mobile...
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Page/URL
+      placeholder: /frontend/office-cleaning.html
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: 1) Go to..., 2) Click..., 3) Observe...
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      placeholder: OS/Browser/Viewport
