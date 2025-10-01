@@ -1102,3 +1102,157 @@ a {
     font-size: 1rem;
     color: #1a1a1a;
 }
+/* ========== HEADER IMPROVEMENTS ========== */
+
+.site-header {
+  background: white;
+  border-bottom: 1px solid #eee;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Logo */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  height: 48px;
+  width: auto;
+}
+
+.logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.logo-green {
+  color: #6dc067;
+}
+
+.logo-blue {
+  color: #194e83;
+}
+
+/* Navigation */
+.main-nav ul {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Avenir Next', sans-serif;
+  font-size: 0.95rem;
+}
+
+.main-nav li a {
+  color: #333;
+  text-decoration: none;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Contact & BBB */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.contact-details {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  color: #333;
+  gap: 8px;
+}
+
+.contact-item i {
+  color: #194e83;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
+.contact-item a {
+  color: #194e83;
+  text-decoration: none;
+}
+
+.header-quote {
+  background-color: #194e83;
+  color: white;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.header-quote:hover {
+  background-color: #143b6e;
+}
+
+.bbb-badge img {
+  height: 80px;
+  max-height: 100%;
+}
+
+/* Mobile Nav Toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 22px;
+  background: #194e83;
+  margin: 5px 0;
+  transition: 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .main-nav ul {
+    flex-direction: column;
+    display: none;
+    margin-top: 20px;
+  }
+
+  .main-nav.open ul {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .header-right {
+    flex-direction: column;
+    align-items: flex-end;
+  }
