@@ -15,138 +15,318 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png" />
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".hero-slideshow .slide");
+  let current = 0;
+
+  // Define custom durations (ms) for remaining 7 videos
+  const durations = [
+    3000, // hero1 → 3 sec
+    5000, // hero2 → 5 sec
+    1000,  // hero4 → 1 sec
+    500,  // hero5 → 0.5 sec
+    1750, // hero6 → 1.75 sec
+    3000, // hero7 → 3 sec
+    3000  // hero8 → 3 sec
+  ];
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => slide.classList.remove("active"));
+    slides[index].classList.add("active");
+
+    const video = slides[index].querySelector("video");
+    if (video) {
+      video.currentTime = 0;
+      video.muted = true;
+      video.play().catch(()=>{});
+
+      // Force cut after custom duration
+      setTimeout(() => {
+        nextSlide();
+      }, durations[index]);
+    }
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }
+
+  // Start first video
+  showSlide(current);
+});
+</script>
+
+
 <body>
-  <!-- Header / Navigation -->
-<header class="site-header">
-  <div class="container header-inner">
-    <!-- Left: Logo and Brand -->
-    <div class="header-left">
-      <a href="index.html#home" class="logo-link">
-        <img src="images/favicon.png" alt="Green Pacific logo icon" class="logo-icon" />
-        <span class="logo-text" style="font-family: 'Montserrat', sans-serif; font-weight: 700;">
-  <span class="logo-green">GREEN</span>
-  <span class="logo-blue">PACIFIC</span>
-</span>
-      </a>
-    </div>
-
-    <!-- Center: Navigation -->
-    <nav class="main-nav" id="mainNav">
-      <ul>
-        <li><a href="office-cleaning.html">Office<br>Cleaning</a></li>
-        <li><a href="commercial-cleaning.html">Commercial<br>Cleaning</a></li>
-        <li><a href="specialty.html">Specialty</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="service-areas.html">Service<br>Areas</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="insights.html">Insights</a></li>
-      </ul>
-    </nav>
-
-    <!-- Right: Contact Info + CTA + BBB Badge -->
-    <div class="header-right">
-      <div class="contact-details">
-        <div class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <span>Email<br><a href="mailto:info@greenpacificcleaning.ca">info@greenpacificcleaning.ca</a></span>
+    <!-- Header / Navigation -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <!-- Left: Logo -->
+            <div class="header-left">
+                <a href="#home" class="logo-link">
+                    <!-- Use the favicon as the logo mark and accompany it with the brand name text -->
+                    <img src="images/favicon.png" alt="Green Pacific logo icon" class="logo-icon" />
+                    <span class="logo-text">
+                        <span class="logo-green">GREEN</span>
+                        <span class="logo-blue">PACIFIC</span>
+                    </span>
+                </a>
+            </div>
+            <!-- Center: Navigation Menu -->
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <!-- Clicking the logo will take users to the home section; the dedicated Home link is removed to save space -->
+                    <!-- Use two lines for longer page names to mirror the source website layout -->
+                    <!-- Link to the dedicated Office Cleaning page -->
+                    <!-- Each navigation item that links to a section with sub‑pages includes a small chevron to indicate a dropdown in the source site.
+                         We add an <i> element with the Font Awesome chevron‑down icon to replicate this visual cue.  Items without sub‑pages omit the chevron. -->
+                    <li><a href="office-cleaning.html">Office<br>Cleaning</a></li>
+                    <li><a href="commercial-cleaning.html">Commercial<br>Cleaning <i class="fas fa-chevron-down" aria-hidden="true"></i></a></li>
+                    <li><a href="specialty.html">Specialty <i class="fas fa-chevron-down" aria-hidden="true"></i></a></li>
+                    <li><a href="about.html">About <i class="fas fa-chevron-down" aria-hidden="true"></i></a></li>
+                    <li><a href="service-areas.html">Service<br>Areas <i class="fas fa-chevron-down" aria-hidden="true"></i></a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="insights.html">Insights <i class="fas fa-chevron-down" aria-hidden="true"></i></a></li>
+                </ul>
+            </nav>
+            <!-- Right: Contact Info & CTA & BBB Badge -->
+            <div class="header-right">
+                <!-- Contact details with icons and labels to mirror the source header -->
+                <div class="contact-details">
+                    <div class="contact-row">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email<br><a href="mailto:info@greenpacificcleaning.ca">info@greenpacificcleaning.ca</a></span>
+                    </div>
+                    <div class="contact-row">
+                        <i class="fas fa-phone"></i>
+                        <span>Phone<br><a href="tel:+16044403569">(604) 440-3569</a></span>
+                    </div>
+                </div>
+                <a href="index.html#quote" class="btn header-quote">Get a Quote&nbsp;Now</a>
+                <div class="bbb-badge">
+                    <a href="https://www.bbb.org/ca/bc/vancouver/profile/cleaning-services/green-pacific-cleaning-and-facility-care-0037-2430691/#sealclick" target="_blank" rel="nofollow">
+                        <img src="https://seal-mbc.bbb.org/seals/blue-seal-153-100-bbb-2430691.png" alt="Green Pacific Cleaning and Facility Care BBB Business Review" />
+                    </a>
+                </div>
+            </div>
+            <!-- Mobile nav toggle -->
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
         </div>
-        <div class="contact-item">
-          <i class="fas fa-phone"></i>
-          <span>Phone<br><a href="tel:+16044403569">(604) 440-3569</a></span>
-        </div>
-      </div>
-      <a href="#quote" class="btn header-quote">Get a Quote Now</a>
-      <div class="bbb-badge">
-        <a href="https://www.bbb.org/ca/bc/vancouver/profile/cleaning-services/green-pacific-cleaning-and-facility-care-0037-2430691/#sealclick" target="_blank" rel="nofollow">
-          <img src="https://seal-mbc.bbb.org/seals/blue-seal-153-100-bbb-2430691.png" alt="Green Pacific Cleaning and Facility Care BBB Business Review" />
-        </a>
-      </div>
-    </div>
+    </header>
 
-    <!-- Mobile nav toggle -->
-    <button class="nav-toggle" aria-label="Toggle navigation">
-      <span class="hamburger"></span>
-    </button>
+<section class="hero">
+  <div class="hero-slideshow">
+    <!-- 7 video slides -->
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero4.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero5.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero6.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero7.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video autoplay muted playsinline>
+        <source src="videos/hero8.mp4" type="video/mp4">
+      </video>
+    </div>
   </div>
-</header>
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1>Vancouver's Premier Local Cleaning Professionals</h1>
-            <p class="hero-tagline">Affordable • Highly Rated • Always Responsive</p>
-            <div class="hero-cta">
-                <a href="#quote" class="btn primary-btn">Get Free Quote</a>
-                <a href="tel:+16044403569" class="btn secondary-btn">Call (604) 440-3569</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Features / Why Choose Us -->
-    <section id="features" class="features">
-        <div class="container">
-            <!-- Update the section heading to reflect the new brand name -->
-            <h2 class="section-title">Why Choose Green Pacific?</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <i class="fas fa-users"></i>
-                    <h3>Empowered Local Crews</h3>
-                    <p>Our cleaning crews are local, fully trained and empowered to deliver exceptional service on every visit.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-clock"></i>
-                    <h3>24/7 Support</h3>
-                    <p>Questions or concerns? Our team is on call around the clock to ensure your facility stays spotless.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-clipboard-list"></i>
-                    <h3>Customized Plans</h3>
-                    <p>We build cleaning programs tailored to your facility’s unique needs with standardized processes.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Safety &amp; Compliance</h3>
-                    <p>From WHMIS training to robust health and safety programs, we keep your team and ours safe.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-sync-alt"></i>
-                    <h3>Flexible Scheduling</h3>
-                    <p>Change scope or schedule without penalties—our flexible terms work around your business.</p>
-                </div>
-                <div class="feature-item">
-                    <i class="fas fa-tags"></i>
-                    <h3>Transparent Pricing</h3>
-                    <p>Enjoy simple, transparent pricing with no hidden franchise fees or long-term contracts.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Overlay -->
+  <div class="hero-overlay"></div>
 
-    <!-- About / Human Touch Section -->
-    <section id="about" class="about">
-        <div class="container about-wrapper">
-            <div class="about-image">
-                <img src="images/teamwork.png" alt="Teamwork illustration" />
-            </div>
-            <div class="about-content">
-                <h2>The Human Touch in Cleaning</h2>
-                <p>
-                    At <strong>Green Pacific Cleaning</strong>, we don’t just clean—<em>we connect</em>. We prioritize the
-                    human touch in everything we do, forging genuine relationships between our clients, cleaning crews
-                    and company leadership. The best service comes from understanding the people we serve, and we
-                    take the time to know your business and your unique needs.
-                </p>
-                <p>
-                    Our people‑centric, systems‑based approach ensures the consistency and quality you expect
-                    while retaining the benefits of working with local, independent crews. We invest in our
-                    team members through continuous training and fair compensation to foster accountability,
-                    collaboration and pride in every space we clean. We’re committed to environmentally responsible
-                    practices and caring for the facilities we service—reflecting our dedication to both people
-                    and planet.
-                </p>
-            </div>
-        </div>
-    </section>
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <h1>Green Pacific Cleaning</h1>
+    <p class="hero-tagline">Reliable Commercial Cleaning, Always</p>
+    <div class="hero-cta">
+      <a href="#quote" class="btn primary-btn">Get a Quote</a>
+      <a href="#services" class="btn secondary-btn">Our Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- Commercial Cleaning Done Right Section -->
+<section class="intro-section">
+  <div class="container intro-container">
+    
+    <!-- Left Column: Text -->
+    <div class="intro-text">
+      <h2>Commercial Cleaning Done Right</h2>
+      <p>
+        At Green Pacific Cleaning, we understand the 
+        <a href="https://issa-canada.com/en/learn/the-value-of-clean" target="_blank" rel="noopener noreferrer">
+          Value of Clean
+        </a> 
+        and firmly believe that a spotless workspace is the foundation for success 
+        in every business or organization.
+      </p>
+      <p>
+        Our team is committed to delivering consistent, high-quality 
+        <a href="commercial-cleaning.html">Commercial Cleaning Services</a> tailored 
+        to your unique needs. We proudly maintain the highest standards in professional 
+        cleaning, backed by our 
+        <a href="https://www.bbb.org/ca/bc/vancouver/profile/cleaning-services/green-pacific-cleaning-and-facility-care-0037-2430691/" target="_blank" rel="noopener noreferrer">
+          BBB A+ Accreditation
+        </a>  
+        by following and exceeding industry standards for commercial cleaning such as the 
+        <a href="https://cims.issa.com/wp-content/uploads/2021/06/CIMS-Standard-2023_FINAL.pdf" target="_blank" rel="noopener noreferrer">
+          Cleaning Industry Management Standard
+        </a>.
+      </p>
+    </div>
+
+    <!-- Right Column: Team Image -->
+    <div class="intro-image">
+      <img src="images/commercial-cleaning-team.jpg" 
+           alt="Green Pacific Cleaning Team - BBB Accredited and 4.9 Google Rated">
+    </div>
+
+  </div>
+</section>
+
+<!-- Our Employee Sense Section -->
+<section class="employee-sense">
+  <div class="container employee-sense-container">
+
+    <!-- Left Column: Text -->
+    <div class="employee-sense-text">
+      <h2>Our Employee Sense</h2>
+      <p>
+        At Green Pacific Cleaning, we believe in empowering our team members and helping them thrive in delivering trusted, high-quality commercial cleaning services.
+      </p>
+      <p>
+        We focus on building a strong sense of ownership, encouraging collaboration, and enhancing our employees’ problem-solving skills. Our crews work with professionalism and pride, guided by values of accountability, self-reflection, and respect — the foundations of being a Green Pacific team member.
+      </p>
+      <p>
+        Our goal is to cultivate high-performing cleaning professionals who are determined, capable, and passionate about providing the exceptional service and reliability our clients across Vancouver have come to expect.
+      </p>
+    </div>
+
+    <!-- Right Column: Image -->
+    <div class="employee-sense-image">
+      <img src="images/quality_assurance_floor_cleaning.jpg" alt="Green Pacific Cleaning - Quality Assurance">
+    </div>
+
+  </div>
+</section>
+
+<!-- Why Choose Green Pacific Section -->
+<section class="why-choose">
+  <div class="container">
+    <h2>Why Choose Green Pacific Cleaning?</h2>
+
+    <!-- Icons Grid -->
+    <div class="features-grid">
+      <div class="feature-item">
+        <img src="images/icons/local-crews.png" alt="Local Crews">
+        <p>Dedicated Local Crews with Backups Always Ready</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/247-support.png" alt="24/7 Support">
+        <p>24/7 Live Agent & Mobile Support</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/price-match.png" alt="Price Match">
+        <p>Price Match Guarantee for Equal Services</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/tools.png" alt="Premium Tools">
+        <p>Premium Tools and Eco-Friendly Chemicals</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/cancel.png" alt="Cancel Anytime">
+        <p>Cancel Anytime – No Penalties, No Questions</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/standardized.png" alt="Standardized Processes">
+        <p>Standardized Processes Tailored to Your Facility</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/quality-control.png" alt="Quality Control">
+        <p>Onsite & Digital Quality Control for Your Facility</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/scope.png" alt="Unlimited Scope">
+        <p>Unlimited Scope Adjustments Throughout the Year</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/flexibility.png" alt="Flexibility">
+        <p>Stop & Restart Anytime – Flexible Service Plans</p>
+      </div>
+      <div class="feature-item">
+        <img src="images/icons/no-franchise.png" alt="No Franchise">
+        <p>No Franchise Contracts – 100% Local</p>
+      </div>
+    </div>
+
+    <!-- CTA Inside Same Section -->
+    <div class="features-cta">
+      <div class="cta-buttons">
+        <a href="contact.html" class="btn primary-btn">Get Free Quote</a>
+        <a href="sample-cleaning.html" class="btn secondary-btn">Request Free Sample Cleaning</a>
+      </div>
+      <p class="cta-note">
+        Serving clients across <strong>Vancouver & the Lower Mainland</strong> with trusted, local cleaning crews.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="human-touch">
+  <div class="container human-touch-container">
+    
+    <div class="human-touch-text">
+      <h2>The Human Touch in Cleaning</h2>
+      <p>
+        At Green Pacific Cleaning, we don’t just clean—we connect. We prioritize the human touch in everything we do, 
+        forging genuine relationships between our clients, cleaning crews and company leadership. 
+        The best service comes from understanding the people we serve, and we take the time to know your business 
+        and your unique needs.
+      </p>
+      <p>
+        Our people-centric, systems-based approach ensures the consistency and quality you expect while retaining 
+        the benefits of working with local, independent crews. We invest in our team members through continuous 
+        training and fair compensation to foster accountability, collaboration and pride in every space we clean. 
+        We’re committed to environmentally responsible practices and caring for the facilities we service—reflecting 
+        our dedication to both people and planet.
+      </p>
+    </div>
+
+    <div class="human-touch-image">
+      <img src="images/human_touch.png" alt="Green Pacific Cleaning team providing human touch service">
+    </div>
+
+  </div>
+</section>
+
+
 
     <!-- Call to Action Section -->
     <section id="quote" class="cta">
@@ -160,44 +340,62 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-building"></i></div>
-                    <h3>Office Cleaning</h3>
-                    <p>Comprehensive cleaning for offices of all sizes, ensuring a productive and hygienic environment.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-store"></i></div>
-                    <h3>Retail &amp; Commercial</h3>
-                    <p>Specialized cleaning for retail stores, restaurants and commercial spaces to make the best impression.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-clinic-medical"></i></div>
-                    <h3>Medical Facilities</h3>
-                    <p>Disinfection and cleaning services for clinics and healthcare offices following strict sanitation protocols.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-university"></i></div>
-                    <h3>Educational Institutions</h3>
-                    <p>School, college and daycare cleaning services that keep learning environments healthy and safe.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-dumbbell"></i></div>
-                    <h3>Fitness &amp; Recreation</h3>
-                    <p>Cleaning solutions for gyms and recreational facilities, maintaining hygiene and guest confidence.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon"><i class="fas fa-warehouse"></i></div>
-                    <h3>Industrial &amp; Warehouse</h3>
-                    <p>Heavy-duty cleaning for industrial spaces and warehouses tailored to your specific operations.</p>
-                </div>
-            </div>
+<!-- Services Section -->
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="section-title">Our Services</h2>
+
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_office_cleaning.png" alt="Office Cleaning">
         </div>
-    </section>
+        <h3>Office Cleaning</h3>
+        <p>Comprehensive cleaning for offices of all sizes, ensuring a productive and hygienic environment.</p>
+      </div>
+
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_retail.png" alt="Retail and Commercial">
+        </div>
+        <h3>Retail & Commercial</h3>
+        <p>Specialized cleaning for retail stores, restaurants and commercial spaces to make the best impression.</p>
+      </div>
+
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_medical_offices.png" alt="Medical Facilities">
+        </div>
+        <h3>Medical Facilities</h3>
+        <p>Disinfection and cleaning services for clinics and healthcare offices following strict sanitation protocols.</p>
+      </div>
+
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_daycares_schools.png" alt="Educational Institutions">
+        </div>
+        <h3>Educational Institutions</h3>
+        <p>School, college and daycare cleaning services that keep learning environments healthy and safe.</p>
+      </div>
+
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_gyms.png" alt="Fitness and Recreation">
+        </div>
+        <h3>Fitness & Recreation</h3>
+        <p>Cleaning solutions for gyms and recreational facilities, maintaining hygiene and guest confidence.</p>
+      </div>
+
+      <div class="service-item">
+        <div class="service-icon">
+          <img src="images/icons/facility_post_construction.png" alt="Post Construction Cleaning">
+        </div>
+        <h3>Post-Construction Cleaning</h3>
+        <p>Thorough post-construction cleaning services to make newly built or renovated spaces move-in ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Contact Section -->
     <section id="contact" class="contact">

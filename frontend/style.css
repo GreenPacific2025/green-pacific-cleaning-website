@@ -9,7 +9,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     color: #1a1a1a;
     line-height: 1.6;
-    background-color: #f7f9fc;
+    
 }
 
 img {
@@ -21,7 +21,6 @@ a {
     color: inherit;
     text-decoration: none;
 }
-
 /* Containers */
 .container {
     /* Increase the container width further to reduce the empty space at the edges.
@@ -52,8 +51,9 @@ a {
 }
 
 /* Header inner container */
-.header-inner {
-    /* Layout the logo, navigation and right‑hand section on one row. */
+.header-inner,
+.header-container {
+    /* Layout the logo, navigation and right-hand section on one row. */
     display: flex;
     align-items: center;
     /* Distribute space between the left/logo + navigation section and the right contact/CTA/badge section.
@@ -76,9 +76,10 @@ a {
 .logo-link {
     display: flex;
     align-items: center;
-    /* Bring the icon and text closer together */
-    gap: 0.25rem;
+    /* Tuck the brand name close to the logo mark for a compact lockup */
+    gap: 0.1rem;
 }
+
 
 /* Icon (favicon) used as the logo mark */
 /* Enlarge the logo mark to improve visibility. The favicon artwork
@@ -107,10 +108,12 @@ a {
     font-size: 2rem;
     font-weight: 700;
     display: flex;
-    align-items: baseline;
-    /* Reduce the gap between the words of the brand name so they sit closer together next to the logo icon. */
+    align-items: center;
+    line-height: 1;
+    /* Keep the words visually tight while centering them with the logo mark */
     gap: 0.3rem;
 }
+
 
 /* Colour accents for the brand name */
 /* Use a single colour for both parts of the brand name */
@@ -121,22 +124,23 @@ a {
 
 /* Navigation menu */
 /* Navigation menu list */
-.main-nav ul {
-    list-style: none;
+
+.main-nav ul{
     display: flex;
     align-items: center;
-    /* Align items to the start so that the list flows naturally from left to right. */
-    justify-content: flex-start;
-    /* Provide a consistent gap between each navigation item.  A fixed gap
-       prevents the extreme spacing seen previously while still leaving
-       breathing room between links. */
-    gap: 1.5rem;
-    font-weight: 600;
-    /* Keep navigation on a single line and prevent it from wrapping to a new row.
-       This mirrors the source site where all menu items appear in a single row. */
-    flex-wrap: nowrap;
-    overflow: hidden;
+    gap: 2rem;  /* adjust space between menu items */
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
+
+
+.main-nav li{
+    display: flex;
+    align-items: center;
+}
+
+
 
 /* Hide the horizontal scrollbar for the navigation menu while preserving scroll functionality */
 .main-nav ul::-webkit-scrollbar {
@@ -145,16 +149,15 @@ a {
 
 /* Allow the navigation container itself to expand between the logo and the header's right section */
 /* Navigation container */
-.main-nav {
-    /* Allow the navigation to grow and fill the available horizontal space between
-       the logo and the contact area. Removing the fixed flex basis prevents the
-       navigation from leaving an awkwardly large gap before the contact section. */
-    flex: 1 1 auto;
+
+.main-nav{
+    flex: 1;
     display: flex;
-    /* Align the list itself to the start so items flow naturally from left to right. */
-    justify-content: flex-start;
-    overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
+
+
 
 .logo a {
     font-family: 'Montserrat', sans-serif;
@@ -172,17 +175,39 @@ a {
 /* Navigation links styling. Increase the font size and adjust padding
    to improve legibility. This still allows seven items to fit on a
    single line on larger screens. */
-.main-nav a {
-    color: #1a1a1a;
-    padding: 0.5rem 0.75rem;
-    transition: color 0.3s ease;
-    /* Reduce the font size slightly so all menu items can fit on narrower screens */
-    /* Reduce font size slightly to accommodate more navigation items */
-    font-size: 0.75rem;
-    /* Allow two-line navigation labels to stack neatly */
-    line-height: 1.2;
+
+.main-nav a{
+    display: flex;
+    align-items: center;
     text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem; /* slightly smaller so it looks tighter */
+    color: var(--yale-blue);
+    text-decoration: none;
+    padding: 0.25rem 0;
+    transition: color 0.2s ease-in-out;
+    white-space: nowrap;
+    position: relative;
 }
+
+.main-nav a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;  /* space between text and line */
+    width: 0;
+    height: 2px;
+    background: var(--mantis);
+    transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after{
+    width: 100%;
+}
+
+
 
 /* Chevron icons within navigation links */
 .main-nav a i {
@@ -191,9 +216,11 @@ a {
     color: #014f86;
 }
 
-.main-nav a:hover {
-    color: #26ba6c;
+
+.main-nav a:hover{
+    color: var(--mantis);
 }
+
 
 .btn {
     display: inline-block;
@@ -258,7 +285,6 @@ a {
 }
 
 /* The contact information in the header is displayed horizontally on larger screens
-   to mirror the layout from the Arelli website. Items are spaced evenly with a
    small gap, and the text is sized smaller to fit comfortably in the header. */
 .contact-info {
     display: flex;
@@ -296,7 +322,6 @@ a {
 }
 
 /* Contact details layout in the header with icons and labels.  These classes
-   mirror the layout of the Arelli header, where both email and phone
    information are displayed alongside their respective icons. */
 .contact-details {
     display: flex;
@@ -400,58 +425,106 @@ a {
 
 /* Hero Section */
 .hero {
-    position: relative;
-    height: 75vh;
-    min-height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    text-align: center;
-    background-image: url('images/hero-bg.png');
-    background-size: cover;
-    background-position: center;
+  position: relative;
+  height: 100dvh; /* dynamically matches visible viewport, better than 100svh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
+/* Slideshow wrapper */
+.hero-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Each video slide */
+.hero-slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: none; /* instant switch, no fading */
+}
+
+/* Active slide (visible) */
+.hero-slideshow .slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Video element inside slide */
+.hero-slideshow .slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ensures full screen coverage */
+  object-position: center;
+  display: block;
+}
+
+/* Overlay (dark transparent layer) */
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Slightly lighter overlay to allow the background artwork to show through */
-    background: rgba(0, 0, 0, 0.35);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* darker overlay for readability */
+  z-index: 2;
 }
 
+/* Hero content (text/buttons) */
 .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  padding: 2rem;
 }
 
 .hero h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .hero-tagline {
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .hero-cta .btn {
-    margin: 0.5rem;
+  margin: 0.5rem;
 }
+
+/* Reset for HTML & Body to prevent any scroll below hero */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
 
 /* Features Section */
 .features {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 
 .section-title {
@@ -560,7 +633,7 @@ a {
 /* Services Section */
 .services {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 
 .services-grid {
@@ -597,6 +670,33 @@ a {
 .service-item p {
     color: #555555;
     font-size: 0.95rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.service-icon img {
+  width: 90px;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  .service-icon img {
+    width: 70px;
+  }
 }
 
 /* Contact Section */
@@ -653,7 +753,7 @@ a {
 .contact-form {
     flex: 1 1 50%;
     min-width: 280px;
-    background-color: #ffffff;
+    background-color: transparent;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -725,7 +825,7 @@ a {
 /* FAQ styling */
 .faq-section {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .faq-list {
     margin-top: 2rem;
@@ -746,7 +846,7 @@ a {
 /* Careers page styling */
 .careers-section {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .careers-steps {
     display: flex;
@@ -774,7 +874,7 @@ a {
 /* Infographics page styling */
 .infographics-section {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .infographics-grid {
     display: flex;
@@ -801,7 +901,7 @@ a {
 /* Sitemap styling */
 .sitemap-section {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .sitemap-section ul {
     list-style: none;
@@ -827,7 +927,7 @@ a {
 /* Policy pages styling */
 .policy-section {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .policy-section h1 {
     margin-bottom: 1rem;
@@ -948,7 +1048,9 @@ a {
     .main-nav ul {
         display: none;
         flex-direction: column;
-        background-color: #ffffff;
+        justify-content: flex-start;
+        align-items: stretch;
+        background-color: transparent;
         position: absolute;
         top: 80px;
         left: 0;
@@ -978,23 +1080,119 @@ a {
 /* === Office Cleaning Page Styles === */
 /* Hero variant for office cleaning page inherits base hero styles. */
 .office-hero {
-    position: relative;
-    height: 60vh;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    text-align: center;
-    background-image: url('images/hero-bg.png');
-    background-size: cover;
-    background-position: center;
+  position: relative;
+  height: 90vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+
+  /* ✅ Add your custom background image */
+  background-image: url('images/office_hero_bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  /* Overlay handled separately */
+  overflow: hidden;
 }
+
+.office-hero .hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25); /* dark overlay for readability */
+  z-index: 1;
+}
+
+.office-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+}
+/* Trust & Recognition Section */
+.trust-section {
+  background: #ffffff; /* pure white background */
+  padding: 4rem 0;
+}
+
+.trust-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.trust-text h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  color: #0b3a82;
+  margin-bottom: 1rem;
+}
+
+.trust-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.25rem;
+  color: #014f86;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.trust-text p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.cert-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  align-items: center;
+}
+
+.cert-logos img {
+  height: 80px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.trust-image {
+  text-align: center;
+}
+
+.trust-image img {
+  max-width: 90%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .trust-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .trust-image {
+    order: -1;
+  }
+  .cert-logos {
+    justify-content: center;
+  }
+}
+
 
 /* Section styling for the professional cleaners steps */
 .why-cleaners {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .steps-grid {
     display: grid;
@@ -1038,7 +1236,7 @@ a {
 /* Office services section styling */
 .office-services {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 .office-services .services-grid {
     display: grid;
@@ -1070,7 +1268,7 @@ a {
     margin-top: 2rem;
 }
 .benefit-item {
-    background-color: #ffffff;
+    background-color: transparent;
     border-radius: 6px;
     padding: 2rem;
     text-align: center;
@@ -1085,7 +1283,7 @@ a {
 /* Tailored solutions section */
 .tailored {
     padding: 4rem 0;
-    background-color: #ffffff;
+    background-color: transparent;
 }
 
 /* Call to action for office cleaning page */
@@ -1101,4 +1299,349 @@ a {
     margin-bottom: 2rem;
     font-size: 1rem;
     color: #1a1a1a;
+}
+
+/* Intro Section */
+.intro-section {
+  padding: 4rem 0;
+  background: var(--white);
+}
+
+.intro-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.intro-text h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--yale-blue);
+  margin-bottom: 1rem;
+}
+
+.intro-text p {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.intro-section .intro-text a {
+  color: var(--yale-blue) !important;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+
+.intro-image {
+  text-align: center;
+}
+
+.intro-image img {
+  max-width: 80%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.1);
+  display: block;
+  margin: 0 auto;
+}
+
+/* Force blue links in the intro section */
+.intro-section .intro-text a {
+  color: #194e83 !important;  /* Yale Blue */
+  font-weight: 600;
+  text-decoration: underline;
+}
+/* Employee Sense Section */
+.employee-sense {
+  padding: 4rem 0;
+  background: #f7f9fc; /* light background to separate from hero */
+}
+
+.employee-sense-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.employee-sense-text h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--yale-blue);
+  margin-bottom: 1rem;
+}
+
+.employee-sense-text p {
+  font-family: "Avenir Next", sans-serif;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.employee-sense-image {
+  text-align: center;
+}
+
+.employee-sense-image img {
+  max-width: 55%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.1);
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive tweak for mobile */
+@media (max-width: 768px) {
+  .employee-sense-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .employee-sense-text {
+    order: 2;
+  }
+  .employee-sense-image {
+    order: 1;
+    margin-bottom: 2rem;
+  }
+}
+/* Why Choose Section */
+.why-choose {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.why-choose h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 per row desktop */
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* Only apply these styles inside the Why Choose section */
+.why-choose .feature-item {
+  background: transparent;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center icon + text */
+  justify-content: center;
+  min-height: 180px; /* make cards taller */
+}
+
+.why-choose .feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.why-choose .feature-item img {
+  max-width: 80px;  /* increase icon size */
+  margin-bottom: 15px;
+}
+
+
+.feature-item:hover {
+  transform: translateY(-5px);
+}
+
+.feature-item img {
+  max-width: 80px;   /* larger icons */
+  margin-bottom: 20px;
+}
+
+.feature-item p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* CTA inside Why Choose */
+.features-cta {
+  margin-top: 20px;
+}
+
+.features-cta .cta-buttons {
+  margin-bottom: 15px;
+}
+
+.features-cta .btn {
+  margin: 5px;
+  padding: 14px 26px;
+  font-size: 1rem;
+}
+
+.features-cta .cta-note {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+
+/* Human Touch Section */
+.human-touch {
+  padding: 4rem 0;
+  background: #f7f9fc;
+}
+
+.human-touch-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.human-touch-text h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0b3a82;
+  margin-bottom: 1rem;
+}
+
+.human-touch-text p {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.human-touch-image {
+  text-align: center;
+}
+
+.human-touch-image img {
+  max-width: 45%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+  .human-touch-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .human-touch-text {
+    order: 2;
+  }
+  .human-touch-image {
+    order: 1;
+    margin-bottom: 2rem;
+  }
+}
+//* Why Green Pacific Section */
+.why-green-pacific {
+  background-color: #ffffff;
+  padding: 5rem 0;
+}
+
+.why-green-pacific .why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 3rem;
+}
+
+.why-green-pacific .why-image img {
+  width: 80%;
+  border-radius: 20px;
+  object-fit: cover;
+  max-height: 600px;
+  display: block;
+  clip-path: ellipse(75% 60% at 50% 40%);
+}
+
+.why-green-pacific .why-content {
+  text-align: left;
+}
+
+.why-green-pacific .section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  color: #0b3a82;
+  margin-bottom: 2rem;
+}
+
+.why-green-pacific .why-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.why-green-pacific .why-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #f9fbfd;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-green-pacific .why-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* ✅ Enlarged icons + optional hover scale */
+.why-green-pacific .why-item img {
+  width: 70px; /* was 50px */
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.why-green-pacific .why-item img:hover {
+  transform: scale(1.08); /* smooth enlarge on hover */
+}
+
+.why-green-pacific .why-item h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: #0b3a82;
+  margin: 0 0 0.25rem;
+}
+
+.why-green-pacific .why-item p {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .why-green-pacific .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-green-pacific .why-image {
+    order: -1;
+  }
+
+  .why-green-pacific .why-content {
+    text-align: center;
+  }
+
+  .why-green-pacific .why-item {
+    justify-content: center;
+    text-align: left;
+  }
+}
+/* Increase spacing between major sections */
+section {
+  margin-bottom: 8rem; /* default bottom spacing for all sections */
 }
